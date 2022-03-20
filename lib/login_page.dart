@@ -1,4 +1,6 @@
+import 'package:change_theme/database/sql_helper.dart';
 import 'package:change_theme/home_page.dart';
+import 'package:change_theme/models/login_model.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
@@ -37,7 +39,6 @@ class _LoginPageState extends State<LoginPage> {
               child: TextField(
                 onChanged: (value) {
                   email = value;
-                  print(value);
                 },
                 keyboardType: TextInputType.emailAddress,
                 decoration: const InputDecoration(
@@ -53,7 +54,6 @@ class _LoginPageState extends State<LoginPage> {
               child: TextField(
                 onChanged: (value) {
                   password = value;
-                  print(value);
                 },
                 obscureText: true,
                 decoration: const InputDecoration(
@@ -96,9 +96,25 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  void login() {
+  Future login() async {
     print("Entrando...");
     print("email:$email senha:$password");
+
+    var existe = await SQLHelper.getCountByEmail();
+
+    if (existe == 0) {
+      var login = Login(
+          name: 'Teste', email: 'teste@teste.com.br', password: '123mudar!');
+
+      await SQLHelper.insertlogin(login);
+    }
+
+    if (await SQLHelper.getByEmailPassword(email, password)) {
+      print('autenticado');
+    } else {
+      print('usuário inválido');
+    }
+
     // Navigator.pushReplacement(
     //     context, MaterialPageRoute(builder: (context) => const HomePage()));
   }
