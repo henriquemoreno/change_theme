@@ -1,5 +1,6 @@
 import 'package:change_theme/login_page.dart';
 import 'package:change_theme/main.dart';
+import 'package:change_theme/views/users/index_users_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -42,13 +43,16 @@ class _NavBarState extends State<NavBar> {
             ),
           ),
           ListTile(
-            leading: const Icon(Icons.favorite),
-            title: const Text('Favorites'),
-            onTap: () => {},
+            leading: const Icon(Icons.person),
+            title: const Text('Usuários'),
+            onTap: () => {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const IndexUsers()))
+            },
           ),
           ListTile(
-            leading: const Icon(Icons.person),
-            title: const Text('Friends'),
+            leading: const Icon(Icons.favorite),
+            title: const Text('Favoritos'),
             onTap: () => {},
           ),
           ListTile(

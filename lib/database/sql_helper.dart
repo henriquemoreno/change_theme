@@ -18,6 +18,23 @@ class SQLHelper {
     );
   }
 
+  static Future<List<Login>> getUsers() async {
+    final db = await _getDatabase();
+
+    final List<Map<String, dynamic>> maps =
+        await db.rawQuery('SELECT * FROM login');
+
+    return List.generate(
+      maps.length,
+      (i) {
+        return Login(
+            name: maps[i]['name'],
+            email: maps[i]['email'],
+            password: maps[i]['password']);
+      },
+    );
+  }
+
 // Define a function that inserts logins into the database
   static Future insertlogin(Login login) async {
     // Get a reference to the database.
