@@ -81,7 +81,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
               TextButton(
                 onPressed: () {
-                  //TODO FORGOT PASSWORD SCREEN GOES HERE
+                  //FORGOT PASSWORD SCREEN GOES HERE
                 },
                 child: const Text(
                   'Esqueci a Senha',

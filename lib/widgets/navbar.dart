@@ -128,8 +128,8 @@ class _NavBarState extends State<NavBar> {
       child: const Text("Confirmar"),
       onPressed: () {
         Navigator.of(context, rootNavigator: true).pop();
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => LoginPage()));
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) => const LoginPage()));
       },
     );
 

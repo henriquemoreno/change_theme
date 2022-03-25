@@ -1,7 +1,5 @@
-import 'package:change_theme/main.dart';
 import 'package:change_theme/widgets/navbar.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
