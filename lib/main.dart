@@ -1,5 +1,5 @@
-import 'package:change_theme/home_page.dart';
-import 'package:change_theme/login_page.dart';
+import 'package:change_theme/views/home_page.dart';
+import 'package:change_theme/views/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -58,7 +58,7 @@ class MyApp extends StatelessWidget {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             theme: themeService._currentTheme,
-            home: LoginPage(),
+            home: const LoginPage(),
           );
         }));
   }

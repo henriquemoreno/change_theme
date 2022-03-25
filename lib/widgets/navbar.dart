@@ -1,4 +1,4 @@
-import 'package:change_theme/login_page.dart';
+import 'package:change_theme/views/login_page.dart';
 import 'package:change_theme/main.dart';
 import 'package:change_theme/views/users/index_users_page.dart';
 import 'package:flutter/material.dart';
@@ -88,9 +88,7 @@ class _NavBarState extends State<NavBar> {
             title: Text(
                 'Aparência: ${themeService.isDarkTheme ? "Escuro" : "Claro"}'),
             onTap: () => {
-              print('trocar tema'),
               themeService.isDarkTheme = !themeService.isDarkTheme,
-              print(themeService.isDarkTheme),
               if (themeService.isDarkTheme)
                 {themeService.switchToDarkTheme()}
               else
