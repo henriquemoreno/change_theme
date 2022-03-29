@@ -1,6 +1,7 @@
 import 'package:change_theme/database/sql_helper.dart';
 import 'package:change_theme/models/login_model.dart';
 import 'package:change_theme/views/users/create_users_page.dart';
+import 'package:change_theme/widgets/appbar.dart';
 import 'package:change_theme/widgets/navbar.dart';
 import 'package:flutter/material.dart';
 
@@ -32,19 +33,7 @@ class _IndexUsersState extends State<IndexUsers> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Usuários"),
-        // actions: [
-        //   IconButton(
-        //       onPressed: () {
-        //         Navigator.push(
-        //             context,
-        //             MaterialPageRoute(
-        //                 builder: (context) => const CreateUsers()));
-        //       },
-        //       icon: const Icon(Icons.add))
-        // ],
-      ),
+      appBar: const CustomAppBar(title: 'Usuários'),
       drawer: const NavBar(),
       body: isLoading
           ? const Center(

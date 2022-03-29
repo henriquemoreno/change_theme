@@ -1,6 +1,7 @@
 import 'package:change_theme/database/login_sql_helper.dart';
 import 'package:change_theme/models/login_model.dart';
 import 'package:change_theme/views/users/index_users_page.dart';
+import 'package:change_theme/widgets/appbar.dart';
 import 'package:flutter/material.dart';
 
 class CreateUsers extends StatefulWidget {
@@ -20,9 +21,7 @@ class _CreateUsersState extends State<CreateUsers> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Criar usuário"),
-      ),
+      appBar: const CustomAppBar(title: "Criar usuário"),
       body: SingleChildScrollView(
         child: Form(
             key: _formKey,

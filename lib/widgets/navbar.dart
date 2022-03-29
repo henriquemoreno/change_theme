@@ -1,3 +1,4 @@
+import 'package:change_theme/views/home_page.dart';
 import 'package:change_theme/views/login_page.dart';
 import 'package:change_theme/main.dart';
 import 'package:change_theme/views/users/index_users_page.dart';
@@ -41,6 +42,14 @@ class _NavBarState extends State<NavBar> {
                   image: NetworkImage(
                       'https://oflutter.com/wp-content/uploads/2021/02/profile-bg3.jpg')),
             ),
+          ),
+          ListTile(
+            leading: const Icon(Icons.home),
+            title: const Text('Página Inicial'),
+            onTap: () => {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const HomePage()))
+            },
           ),
           ListTile(
             leading: const Icon(Icons.person),
