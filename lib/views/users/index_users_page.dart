@@ -1,5 +1,4 @@
 import 'package:change_theme/database/login_sql_helper.dart';
-import 'package:change_theme/database/sql_helper.dart';
 import 'package:change_theme/models/login_model.dart';
 import 'package:change_theme/views/users/create_users_page.dart';
 import 'package:change_theme/views/users/edit_users_page.dart';
@@ -19,7 +18,7 @@ class _IndexUsersState extends State<IndexUsers> {
   bool isLoading = true;
 
   void _loadData() async {
-    final data = await SQLHelper.getUsers();
+    final data = await LoginSqlHelper.getUsers();
     setState(() {
       loginList = data;
       isLoading = false;

@@ -1,4 +1,4 @@
-import 'package:change_theme/database/sql_helper.dart';
+import 'package:change_theme/database/login_sql_helper.dart';
 import 'package:change_theme/views/home_page.dart';
 import 'package:change_theme/models/login_model.dart';
 import 'package:flutter/material.dart';
@@ -118,16 +118,16 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Future login() async {
-    var existe = await SQLHelper.getCountByEmail();
+    var existe = await LoginSqlHelper.getCountByEmail();
 
     if (existe == 0) {
       var login = Login(
           name: 'Teste', email: 'teste@teste.com.br', password: '123mudar!');
 
-      await SQLHelper.insertlogin(login);
+      await LoginSqlHelper.insertlogin(login);
     }
 
-    if (await SQLHelper.getByEmailPassword(email, password)) {
+    if (await LoginSqlHelper.getByEmailPassword(email, password)) {
       Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(builder: (context) => const HomePage()),

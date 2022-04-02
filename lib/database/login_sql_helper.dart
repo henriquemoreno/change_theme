@@ -1,26 +1,11 @@
+import 'package:change_theme/database/sql_helper.dart';
 import 'package:change_theme/models/login_model.dart';
 import 'package:flutter/material.dart';
-import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
-const String databaseName = 'TesteLogin.db';
-
-const String createTables =
-    "CREATE TABLE login(id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,name TEXT, email TEXT, password TEXT)";
-
 class LoginSqlHelper {
-  static Future<Database> _getDatabase() async {
-    return openDatabase(
-      join(await getDatabasesPath(), databaseName),
-      onCreate: (db, version) {
-        return db.execute(createTables);
-      },
-      version: 1,
-    );
-  }
-
   static Future<Login> getUsersById(int id) async {
-    final db = await _getDatabase();
+    final db = await SQLHelper.getDatabase();
 
     final maps =
         await db.query('login', where: "id = ?", whereArgs: [id], limit: 1);
@@ -35,7 +20,7 @@ class LoginSqlHelper {
   }
 
   static Future<void> updateLogin(Login login) async {
-    final db = await _getDatabase();
+    final db = await SQLHelper.getDatabase();
 
     await db.update(
       'login',
@@ -46,7 +31,7 @@ class LoginSqlHelper {
   }
 
   static Future<void> deleteLogin(int id) async {
-    final db = await _getDatabase();
+    final db = await SQLHelper.getDatabase();
     try {
       await db.delete("login", where: "id = ?", whereArgs: [id]);
     } catch (err) {
@@ -54,19 +39,50 @@ class LoginSqlHelper {
     }
   }
 
-  // Define a function that inserts logins into the database
   static Future insertlogin(Login login) async {
-    // Get a reference to the database.
-    final db = await _getDatabase();
+    final db = await SQLHelper.getDatabase();
 
-    // Insert the login into the correct table. You might also specify the
-    // `conflictAlgorithm` to use in case the same login is inserted twice.
-    //
-    // In this case, replace any previous data.
     await db.insert(
       'login',
       login.toMap(),
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
+  }
+
+  static Future<List<Login>> getUsers() async {
+    final db = await SQLHelper.getDatabase();
+
+    final List<Map<String, dynamic>> maps =
+        await db.rawQuery('SELECT * FROM login');
+
+    return List.generate(
+      maps.length,
+      (i) {
+        return Login(
+            id: maps[i]['id'],
+            name: maps[i]['name'],
+            email: maps[i]['email'],
+            password: maps[i]['password']);
+      },
+    );
+  }
+
+  //Migué para não criar dois email de teste
+  static Future<int> getCountByEmail() async {
+    final db = await SQLHelper.getDatabase();
+
+    var result = await db
+        .rawQuery('SELECT * FROM login where email=?', ['teste@teste.com.br']);
+
+    return result.length;
+  }
+
+  static Future<bool> getByEmailPassword(String email, String password) async {
+    final db = await SQLHelper.getDatabase();
+
+    var result = await db.rawQuery(
+        'SELECT * FROM login where email=? and password=?', [email, password]);
+
+    return result.isNotEmpty ? true : false;
   }
 }
