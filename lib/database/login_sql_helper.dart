@@ -18,6 +18,32 @@ class LoginSqlHelper {
     );
   }
 
+  static Future<Login> getUsersById(int id) async {
+    final db = await _getDatabase();
+
+    final maps =
+        await db.query('login', where: "id = ?", whereArgs: [id], limit: 1);
+
+    var login = maps.firstWhere((element) => element['id'] == id);
+
+    return Login(
+        id: int.parse(login['id'].toString()),
+        name: login['name'].toString(),
+        email: login['email'].toString(),
+        password: login['password'].toString());
+  }
+
+  static Future<void> updateLogin(Login login) async {
+    final db = await _getDatabase();
+
+    await db.update(
+      'login',
+      login.toMap(),
+      where: 'id = ?',
+      whereArgs: [login.id],
+    );
+  }
+
   // Define a function that inserts logins into the database
   static Future insertlogin(Login login) async {
     // Get a reference to the database.

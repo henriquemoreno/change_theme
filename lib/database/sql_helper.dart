@@ -28,6 +28,7 @@ class SQLHelper {
       maps.length,
       (i) {
         return Login(
+            id: maps[i]['id'],
             name: maps[i]['name'],
             email: maps[i]['email'],
             password: maps[i]['password']);
