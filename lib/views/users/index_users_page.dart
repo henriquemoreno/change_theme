@@ -1,3 +1,4 @@
+import 'package:change_theme/database/login_sql_helper.dart';
 import 'package:change_theme/database/sql_helper.dart';
 import 'package:change_theme/models/login_model.dart';
 import 'package:change_theme/views/users/create_users_page.dart';
@@ -99,7 +100,9 @@ class _IndexUsersState extends State<IndexUsers> {
                                     ),
                                   ),
                                   ElevatedButton(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      showAlertDialog(context, index);
+                                    },
                                     child: const Icon(Icons.delete,
                                         color: Colors.white),
                                     style: ElevatedButton.styleFrom(
@@ -196,5 +199,45 @@ class _IndexUsersState extends State<IndexUsers> {
     // colors.add(Colors.purple[400]);
     // colors.add(Colors.orange[400]);
     // return Colors.primaries[Random().nextInt(colors.length)];
+  }
+
+  showAlertDialog(BuildContext context, int index) {
+    // set up the buttons
+    Widget cancelButton = TextButton(
+      child: const Text("Cancelar"),
+      onPressed: () => Navigator.pop(context, true),
+    );
+    Widget continueButton = TextButton(
+      child: const Text("Excluir"),
+      onPressed: () {
+        _deleteLogin(loginList.elementAt(index).id!);
+        Navigator.pop(context, true);
+      },
+    );
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: const Text("Atenção"),
+      content: const Text("Tem certeza que deseja excluir esse cadastro?"),
+      actions: [
+        cancelButton,
+        continueButton,
+      ],
+    );
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
+  // Delete an item
+  void _deleteLogin(int id) async {
+    await LoginSqlHelper.deleteLogin(id);
+    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+      content: Text('Cadastro excluido com sucesso!'),
+    ));
+    _loadData();
   }
 }

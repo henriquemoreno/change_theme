@@ -21,7 +21,7 @@ class _NavBarState extends State<NavBar> {
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              Colors.white,
+              Colors.white.withOpacity(0.2),
               Colors.purple.withOpacity(0.2),
               Colors.red.withOpacity(0.2),
             ],

@@ -1,4 +1,5 @@
 import 'package:change_theme/models/login_model.dart';
+import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -42,6 +43,15 @@ class LoginSqlHelper {
       where: 'id = ?',
       whereArgs: [login.id],
     );
+  }
+
+  static Future<void> deleteLogin(int id) async {
+    final db = await _getDatabase();
+    try {
+      await db.delete("login", where: "id = ?", whereArgs: [id]);
+    } catch (err) {
+      debugPrint("Something went wrong when deleting an item: $err");
+    }
   }
 
   // Define a function that inserts logins into the database
